@@ -5,17 +5,12 @@ from sklearn import cross_validation
 # Load multivar data in the input file
 def load_data(input_file):
     X = []
-    y = []
     with open(input_file, 'r') as f:
         for line in f.readlines():
             data = [float(x) for x in line.split(',')]
-            X.append(data[:-1])
-            y.append(data[-1])
+            X.append(data)
 
-    X = np.array(X)
-    y = np.array(y)
-
-    return X, y
+    return np.array(X)
 
 # Plot the classifier boundaries on input data
 def plot_classifier(classifier, X, y, title='Classifier boundaries', annotate=False):
@@ -43,10 +38,10 @@ def plot_classifier(classifier, X, y, title='Classifier boundaries', annotate=Fa
 
     # choose a color scheme you can find all the options
     # here: http://matplotlib.org/examples/color/colormaps_reference.html
-    plt.pcolormesh(x_values, y_values, mesh_output, cmap=plt.cm.gray)
+    plt.pcolormesh(x_values, y_values, mesh_output, cmap=plt.cm.Set1)
 
     # Overlay the training points on the plot
-    plt.scatter(X[:, 0], X[:, 1], c=y, s=80, edgecolors='black', linewidth=1, cmap=plt.cm.Paired)
+    plt.scatter(X[:, 0], X[:, 1], c=y, edgecolors='black', linewidth=2, cmap=plt.cm.Set1)
 
     # specify the boundaries of the figure
     plt.xlim(x_values.min(), x_values.max())
